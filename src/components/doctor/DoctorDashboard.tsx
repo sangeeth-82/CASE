@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Users, Activity, FileText, Clock, Share2, ShieldCheck, CheckCircle2, ChevronRight, Stethoscope } from 'lucide-react';
 import { useDoctor } from '../../context/DoctorContext';
+import { usePatient } from '../../context/PatientContext';
+import { TRANSLATIONS } from '../../data/translations';
 import { PatientQueue } from './PatientQueue';
 import { ClinicalSummaryCard } from './ClinicalSummaryCard';
 import { DoctorVerificationBar } from './DoctorVerificationBar';
@@ -9,6 +11,9 @@ import { AbdmModal } from './AbdmModal';
 
 export const DoctorDashboard: React.FC = () => {
   const { selectedPatient } = useDoctor();
+  const { language } = usePatient();
+  const t = TRANSLATIONS[language] || TRANSLATIONS.en;
+  
   const [activeTab, setActiveTab] = useState<'summary' | 'graph' | 'documents'>('summary');
   const [showAbdmModal, setShowAbdmModal] = useState<boolean>(false);
 
@@ -18,17 +23,17 @@ export const DoctorDashboard: React.FC = () => {
       <AbdmModal isOpen={showAbdmModal} onClose={() => setShowAbdmModal(false)} />
 
       {/* Doctor Portal Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm transition-colors duration-200">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-2xl bg-sky-700 text-white flex items-center justify-center shadow-md">
             <Stethoscope className="w-6 h-6" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-lg sm:text-xl font-extrabold text-slate-900">
-                Doctor Clinical Workspace & Triage Queue
+              <h1 className="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white transition-colors duration-200">
+                {t.doctorPortal}
               </h1>
-              <span className="bg-sky-100 text-sky-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-sky-200">
+              <span className="bg-sky-100 dark:bg-sky-900/40 text-sky-800 dark:text-sky-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-sky-200 dark:border-sky-800">
                 Admin Mode
               </span>
             </div>
