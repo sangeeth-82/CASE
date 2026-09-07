@@ -1,6 +1,5 @@
 import React from 'react';
 import { useAuth } from './context/AuthContext';
-import { SafetyBanner } from './components/common/SafetyBanner';
 import { DemoBar } from './components/common/DemoBar';
 import { Navbar } from './components/common/Navbar';
 import { LoginPage } from './components/common/LoginPage';
@@ -15,12 +14,9 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-100 dark:bg-slate-900 transition-colors duration-200 flex flex-col font-sans">
       {/* Top Layer 1: Demo Quick Jump Bar */}
       <DemoBar />
-
-      {/* Top Layer 2: Clinical Safety Disclaimer */}
-      <SafetyBanner />
 
       {/* Top Layer 3: Navigation Header & Role Switcher */}
       <Navbar />
